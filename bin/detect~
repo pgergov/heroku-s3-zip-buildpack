@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ -f $1/.build ]; then
-    echo "Using S3 Download buildpack!"
-    exit 0
-else
-    exit 1
-fi
