@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -f $1/.build ]; then
+    echo "Found .build file. Using S3 Zip Download Buildpack!"
+    exit 0
+else
+    exit 1
+fi
