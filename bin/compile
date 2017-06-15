@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+indent() {
+    sed -u 's/^/       /'
+}
+
+if [ ! -s "$1/.build" ]; then
+    echo ".build file empty! Nothing to download." | indent
+    exit 0
+fi
+
+BUILD_DIR=$1
+ENV_DIR=$3
+S3_FILES_DIR="s3files"
+
+if [ -d "$ENV_DIR" ]; then
+    for e in $(ls $ENV_DIR); do
+	export "$e=$(cat $ENV_DIR/$e)"
+    done
+else
+    echo "Can not read environment variables!" | indent
+    exit 1
+fi
+
+get_s3_file() {
+    local file="$1"
+    local region=$(echo "$AWS_REGION")
+    local bucket=$(echo "$AWS_BUCKET")
+    local branch_folder=$(echo "$BRANCH_FOLDER")
+
+    local resource="$branch_folder/$file"
+    local url="https://$region.amazonaws.com/$bucket/$resource"
+
+    curl -s "$url" -o "$file"
+}
+
+cd "$BUILD_DIR"
+mkdir -p "$S3_FILES_DIR"
+cd "$S3_FILES_DIR"
+
+while read file; do
+    echo "Downloading $file" | indent
+    get_s3_file "$file"
+
+    if [[ ${file: -4} == ".zip" ]]; then
+	unzip "$file"
+	rm "$file"
+    fi
+
+done < "$BUILD_DIR/.build"
