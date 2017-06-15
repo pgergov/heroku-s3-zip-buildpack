@@ -9,9 +9,10 @@ This is a Heroku Buildpack that can download (zip) files from a public Amazon S3
   - **Important** Put one file at each line. If you have only one file remember to add an `empty row` at the end.
   
 ```
-binary1.exe
-binary2.tar.gz
-binary3.dll
+binary1.zip
+image.png
+binary2.zip
+folder_name
 ```
   
   - You will need to add the following environment variables:
