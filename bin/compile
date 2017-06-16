@@ -4,8 +4,8 @@ indent() {
     sed -u 's/^/       /'
 }
 
-if [ ! -s "$1/.build" ]; then
-    echo ".build file empty! Nothing to download." | indent
+if [ ! -s "$1/.s3_files" ]; then
+    echo ".s3_files file is empty! Nothing to download." | indent
     exit 0
 fi
 
@@ -47,4 +47,4 @@ while read file; do
 	rm "$file"
     fi
 
-done < "$BUILD_DIR/.build"
+done < "$BUILD_DIR/.s3_files"

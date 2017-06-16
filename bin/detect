@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -f $1/.build ]; then
-    echo "Found .build file. Using S3 Zip Download Buildpack!"
+if [ -f $1/.s3_files ]; then
+    echo "Found .s3_files file!"
     exit 0
 else
     exit 1

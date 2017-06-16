@@ -4,7 +4,7 @@ This is a Heroku Buildpack that can download (zip) files from a public Amazon S3
 
 
 ## Usage
-  - In your project root directory create a file and call it `.build` and put inside it all files you want to download from your bucket.
+  - In your project root directory create a file and call it `.s3_files` and put inside it all files you want to download from your bucket.
 
   - **Important** Put one file at each line. If you have only one file remember to add an `empty row` at the end.
   
